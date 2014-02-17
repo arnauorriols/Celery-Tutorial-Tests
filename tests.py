@@ -136,6 +136,18 @@ class CeleryTutorialProjectTests(unittest.TestCase):
         self.assertEqual(res_combination.get(), xsum([multiply(add(self.a, self.b), self.b),
                                                       add(multiply(self.a, self.b), self.a)]))
 
+    @unittest.skip("TO FINISH")
+    def test_primitives_group_vs_map(self):
+        sub_add = add.s(self.a)
+        sub_add_2 = add.s(self.a)
+
+        sub_group = group(sub_add, sub_add_2)
+        sub_map = add.map([(self.a, self.b), (self.a, self.b)])
+
+        res_group = sub_group(self.b)
+        res_map = sub_map()
+
+        self.assertEqual(res_group.count(), 2)
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
